@@ -3,180 +3,204 @@
 {% block content %}
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #0d0d0d; color: #e0e0e0; font-family: 'Inter', sans-serif; }
+body { background: #0a0a0a; color: #e5e5e5; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
 .admin-shell { display: flex; min-height: 100vh; position: relative; }
-.admin-shell.sidebar-closed .sidebar { transform: translateX(-100%); opacity: 0; visibility: hidden; }
-.admin-shell.sidebar-closed .main { margin-left: 0; }
-.admin-shell.sidebar-closed .sidebar-open-btn { display: inline-flex; }
 
-.sidebar { width: 220px; flex-shrink: 0; background: #111; border-right: 1px solid #1e1e1e; display: flex; flex-direction: column; position: fixed; height: 100vh; overflow-y: auto; transform: translateX(0); transition: transform .25s ease, opacity .25s ease, visibility .25s ease; }
-.sidebar-logo { padding: 28px 20px 20px; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #444; }
+/* ── Sidebar System ── */
+.sidebar { 
+  width: 240px; 
+  flex-shrink: 0; 
+  background: #111111; 
+  border-right: 1px solid #1f1f1f; 
+  display: flex; 
+  flex-direction: column; 
+  position: fixed; 
+  height: 100vh; 
+  overflow-y: auto; 
+  z-index: 100;
+  transition: transform .25s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+.sidebar-logo { padding: 32px 24px 20px; font-size: .8rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: #555; }
 .sidebar-logo span { color: #fff; }
-.sidebar nav { flex: 1; padding: 8px 12px; }
-.sidebar-link { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: #666; font-size: .875rem; font-weight: 500; text-decoration: none; cursor: pointer; transition: background .15s, color .15s; border: none; background: none; width: 100%; text-align: left; }
-.sidebar-link:hover, .sidebar-link.active { background: #1e1e1e; color: #fff; }
-.sidebar-link i { width: 18px; text-align: center; }
-.sidebar-divider { height: 1px; background: #1e1e1e; margin: 8px 12px; }
-.sidebar-bottom { padding: 16px 12px; }
-.sidebar-toggle, .sidebar-open-btn { border: none; background: #1a1a1a; color: #fff; border-radius: 10px; cursor: pointer; padding: 10px 12px; display: inline-flex; align-items: center; gap: 8px; font-size: .85rem; }
-.sidebar-toggle { margin: 16px; }
-.sidebar-open-btn { display: none; position: fixed; top: 18px; left: 18px; z-index: 50; }
+.sidebar nav { flex: 1; padding: 8px 16px; display: flex; flex-direction: column; gap: 4px; }
+.sidebar-link { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 8px; color: #888; font-size: .875rem; font-weight: 500; text-decoration: none; cursor: pointer; transition: all .15s; border: none; background: none; width: 100%; text-align: left; }
+.sidebar-link:hover, .sidebar-link.active { background: #1a1a1a; color: #fff; }
+.sidebar-link i { width: 18px; text-align: center; font-size: 1rem; }
+.sidebar-divider { height: 1px; background: #1f1f1f; margin: 12px 16px; }
+.sidebar-bottom { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.sidebar-toggle-close { display: none; border: none; background: none; color: #666; position: absolute; top: 28px; right: 20px; cursor: pointer; font-size: 1.1rem; }
 
-.main { margin-left: 220px; flex: 1; padding: 40px 48px; max-width: 900px; transition: margin-left .25s ease; }
+/* Sidebar Closed State (Desktop & Mobile Drawer Base) */
+.admin-shell.sidebar-closed .sidebar { transform: translateX(-100%); }
+.admin-shell.sidebar-closed .main { margin-left: 0; }
+.admin-shell.sidebar-closed .sidebar-open-btn { transform: translateX(0); opacity: 1; pointer-events: auto; }
+
+.sidebar-open-btn { 
+  position: fixed; 
+  top: 24px; 
+  left: 24px; 
+  z-index: 90; 
+  border: 1px solid #222; 
+  background: #111; 
+  color: #fff; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  padding: 10px 16px; 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px; 
+  font-size: .85rem; 
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transform: translateX(-20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .2s, opacity .2s;
+}
+.sidebar-open-btn:hover { border-color: #444; background: #161616; }
+
+/* ── Content Main View ── */
+.main { margin-left: 240px; flex: 1; padding: 48px 56px; max-width: 1200px; transition: margin-left .25s cubic-bezier(0.4, 0, 0.2, 1); }
 .section { display: none; }
-.section.active { display: block; }
+.section.active { display: block; animation: fadeIn 0.2s ease-out; }
 
-.page-header { margin-bottom: 32px; }
-.page-header h1 { font-size: 1.5rem; font-weight: 800; color: #fff; }
-.page-header p { color: #555; font-size: .875rem; margin-top: 4px; }
-
-.flash-msg { background: #0f2e1a; border: 1px solid #1a5c30; color: #4caf81; padding: 12px 16px; border-radius: 8px; font-size: .875rem; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
-
-.card { background: #111; border: 1px solid #1e1e1e; border-radius: 12px; padding: 28px; margin-bottom: 24px; }
-.card-title { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #444; margin-bottom: 20px; }
-
-.field { margin-bottom: 18px; }
-.field label { display: block; font-size: .8rem; font-weight: 600; color: #666; margin-bottom: 6px; letter-spacing: .04em; }
-.field input, .field textarea { width: 100%; padding: 10px 14px; background: #181818; border: 1px solid #252525; border-radius: 8px; color: #e0e0e0; font-size: .9rem; font-family: 'Inter', sans-serif; outline: none; transition: border-color .2s; }
-.field input:focus, .field textarea:focus { border-color: #444; }
-.field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
-.field .hint { font-size: .75rem; color: #444; margin-top: 4px; }
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.field-row3 { display: grid; grid-template-columns: 80px 1fr 1fr; gap: 12px; }
-
-.btn { padding: 10px 22px; border-radius: 8px; font-size: .875rem; font-weight: 700; cursor: pointer; border: none; transition: opacity .2s; }
-.btn-primary { background: #fff; color: #000; }
-.btn-primary:hover { opacity: .85; }
-.btn-danger { background: #2a1010; color: #e05252; border: 1px solid #3a1414; font-size: .8rem; padding: 7px 12px; border-radius: 6px; }
-.btn-danger:hover { background: #3a1414; }
-.btn-ghost { background: #1a1a1a; color: #666; border: 1px solid #222; }
-.btn-ghost:hover { color: #fff; border-color: #444; }
-.form-actions { display: flex; justify-content: flex-end; margin-top: 8px; }
-
-.proj-item { background: #161616; border: 1px solid #222; border-radius: 14px; padding: 20px; margin-bottom: 16px; position: relative; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-.proj-item:hover { transform: translateY(-2px); box-shadow: 0 18px 45px rgba(0,0,0,.35); border-color: #333; }
-.proj-item .rem { position: absolute; top: 14px; right: 14px; }
-.proj-num { font-size: .72rem; font-weight: 700; color: #7d7d7d; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
-
-.sg-block { background: #131313; border: 1px solid #222; border-radius: 14px; padding: 20px; margin-bottom: 16px; }
-
-.section-row { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; align-items: flex-start; }
-.projects-panel, .skills-panel { display: flex; flex-direction: column; gap: 18px; }
-.projects-panel .card, .skills-panel .card { border-radius: 18px; box-shadow: 0 12px 40px rgba(0,0,0,.18); }
-.projects-list-wrap { max-height: calc(100vh - 340px); overflow-y: auto; padding-right: 4px; }
-.projects-list-wrap::-webkit-scrollbar { width: 10px; }
-.projects-list-wrap::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 999px; }
-.projects-list-wrap::-webkit-scrollbar-track { background: transparent; }
-.skills-panel { position: sticky; top: 90px; align-self: start; max-height: calc(100vh - 120px); overflow-y: auto; padding: 22px; background: linear-gradient(180deg, #111 0%, #151515 100%); border: 1px solid #232323; }
-.skills-panel .card-title { color: #ccc; }
-.skills-panel .card { border: none; background: transparent; box-shadow: none; padding: 0; }
-.skills-panel form { display: flex; flex-direction: column; gap: 18px; }
-.skills-panel .add-block-btn { margin-top: 0; }
-
-@media (max-width: 1024px) {
-  .section-row { grid-template-columns: 1fr; }
-  .skills-panel { position: static; max-height: none; overflow: visible; }
-  .projects-list-wrap { max-height: none; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 620px) {
-  .section-row { gap: 16px; }
-}
-.sg-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-.sg-header input { flex: 1; padding: 8px 12px; background: #181818; border: 1px solid #252525; border-radius: 8px; color: #e0e0e0; font-size: .9rem; font-family: 'Inter', sans-serif; outline: none; }
+.page-header { margin-bottom: 36px; }
+.page-header h1 { font-size: 1.75rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+.page-header p { color: #666; font-size: .9rem; margin-top: 6px; }
+
+.flash-msg { background: #092012; border: 1px solid #144624; color: #52c48a; padding: 14px 18px; border-radius: 8px; font-size: .9rem; margin-bottom: 28px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+/* ── Cards & Forms ── */
+.card { background: #111111; border: 1px solid #1f1f1f; border-radius: 12px; padding: 32px; margin-bottom: 24px; }
+.card-title { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #555; margin-bottom: 24px; border-bottom: 1px solid #1f1f1f; padding-bottom: 10px; }
+
+.field { margin-bottom: 20px; }
+.field label { display: block; font-size: .8rem; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: .02em; }
+.field input, .field textarea { width: 100%; padding: 11px 14px; background: #161616; border: 1px solid #262626; border-radius: 8px; color: #e5e5e5; font-size: .9rem; font-family: 'Inter', sans-serif; outline: none; transition: border-color .15s, background .15s; }
+.field input:focus, .field textarea:focus { border-color: #444; background: #1a1a1a; }
+.field textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+.field .hint { font-size: .75rem; color: #555; margin-top: 6px; }
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.field-row3 { display: grid; grid-template-columns: 90px 1fr 1fr; gap: 16px; }
+
+/* ── Action Triggers ── */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 22px; border-radius: 8px; font-size: .875rem; font-weight: 600; cursor: pointer; border: none; transition: all .15s; }
+.btn-primary { background: #ffffff; color: #0a0a0a; }
+.btn-primary:hover { background: #e5e5e5; transform: translateY(-1px); }
+.btn-danger { background: #221010; color: #f25c5c; border: 1px solid #3d1919; font-size: .8rem; padding: 8px 14px; border-radius: 6px; }
+.btn-danger:hover { background: #351414; color: #ff7373; border-color: #521f1f; }
+.btn-ghost { background: #161616; color: #888; border: 1px solid #262626; }
+.btn-ghost:hover { color: #fff; border-color: #444; background: #1a1a1a; }
+.form-actions { display: flex; justify-content: flex-end; margin-top: 12px; }
+
+/* ── Dynamic Layout Grid Panels ── */
+.section-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: flex-start; }
+.projects-panel, .skills-panel { display: flex; flex-direction: column; }
+.projects-list-wrap { max-height: calc(100vh - 360px); overflow-y: auto; padding-right: 8px; counter-reset: project-counter; }
+.projects-list-wrap::-webkit-scrollbar { width: 6px; }
+.projects-list-wrap::-webkit-scrollbar-thumb { background: #262626; border-radius: 10px; }
+.projects-list-wrap::-webkit-scrollbar-thumb:hover { background: #333; }
+
+/* Dynamic List Items & Dynamic Counters */
+.proj-item { background: #141414; border: 1px solid #1f1f1f; border-radius: 12px; padding: 24px; margin-bottom: 20px; position: relative; transition: all .2s ease; }
+.proj-item:hover { border-color: #2d2d2d; background: #161616; }
+.proj-item .rem { position: absolute; top: 20px; right: 20px; }
+.proj-item .proj-num::before { counter-increment: project-counter; content: "Project " counter(project-counter); }
+.proj-num { font-size: .75rem; font-weight: 700; color: #666; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 18px; }
+
+/* ── Skills Presentation Panel ── */
+.skills-panel { position: sticky; top: 40px; max-height: calc(100vh - 80px); overflow-y: auto; }
+.skills-panel::-webkit-scrollbar { width: 6px; }
+.skills-panel::-webkit-scrollbar-thumb { background: #262626; border-radius: 10px; }
+.sg-block { background: #141414; border: 1px solid #1f1f1f; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.sg-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.sg-header input { flex: 1; padding: 9px 14px; background: #161616; border: 1px solid #262626; border-radius: 8px; color: #fff; font-size: .9rem; font-weight: 600; outline: none; }
 .sg-header input:focus { border-color: #444; }
-.sk-labels { display: grid; grid-template-columns: 46px 1fr 80px 36px; gap: 8px; margin-bottom: 6px; }
-.sk-labels span { font-size: .68rem; font-weight: 700; color: #3a3a3a; letter-spacing: .06em; text-transform: uppercase; }
-.sk-row { display: grid; grid-template-columns: 46px 1fr 80px 36px; gap: 8px; align-items: center; margin-bottom: 8px; }
-.sk-row input { padding: 7px 10px; background: #181818; border: 1px solid #252525; border-radius: 7px; color: #e0e0e0; font-size: .85rem; font-family: 'Inter', sans-serif; outline: none; width: 100%; }
+
+.sk-labels { display: grid; grid-template-columns: 60px 1fr 85px 38px; gap: 10px; margin-bottom: 8px; padding-padding: 0 4px; }
+.sk-labels span { font-size: .68rem; font-weight: 700; color: #555; letter-spacing: .08em; text-transform: uppercase; }
+.sk-rows { display: flex; flex-direction: column; gap: 8px; }
+.sk-row { display: grid; grid-template-columns: 60px 1fr 85px 38px; gap: 10px; align-items: center; }
+.sk-row input { padding: 9px 12px; background: #161616; border: 1px solid #262626; border-radius: 8px; color: #e5e5e5; font-size: .875rem; outline: none; width: 100%; }
 .sk-row input:focus { border-color: #444; }
-.sk-row .del { background: #2a1010; border: 1px solid #3a1414; color: #e05252; border-radius: 6px; width: 36px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-.sk-row .del:hover { background: #3a1414; }
-.add-row-btn { background: none; border: 1px dashed #2a2a2a; color: #444; padding: 7px; border-radius: 6px; width: 100%; font-size: .8rem; cursor: pointer; margin-top: 4px; transition: all .2s; }
-.add-row-btn:hover { border-color: #555; color: #aaa; }
-.add-block-btn { background: #1a1a1a; border: 1px dashed #2a2a2a; color: #555; padding: 10px; border-radius: 8px; width: 100%; font-size: .875rem; cursor: pointer; transition: all .2s; margin-top: 8px; }
-.add-block-btn:hover { border-color: #555; color: #fff; }
+.sk-row .del { background: #221010; border: 1px solid #3d1919; color: #f25c5c; border-radius: 8px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .15s; }
+.sk-row .del:hover { background: #351414; color: #ff7373; }
 
-.view-site { display: inline-flex; align-items: center; gap: 6px; color: #555; font-size: .8rem; text-decoration: none; padding: 6px 12px; border-radius: 6px; border: 1px solid #1e1e1e; transition: color .2s, border-color .2s; }
-.view-site:hover { color: #fff; border-color: #444; }
+.add-row-btn { background: none; border: 1px dashed #262626; color: #555; padding: 10px; border-radius: 8px; width: 100%; font-size: .8rem; font-weight: 600; cursor: pointer; margin-top: 12px; transition: all .15s; }
+.add-row-btn:hover { border-color: #444; color: #aaa; background: #161616; }
+.add-block-btn { background: #111; border: 1px dashed #262626; color: #666; padding: 12px; border-radius: 12px; width: 100%; font-size: .875rem; font-weight: 600; cursor: pointer; transition: all .15s; margin-top: 4px; }
+.add-block-btn:hover { border-color: #444; color: #fff; background: #141414; }
 
-@media (max-width: 960px) {
-  .admin-shell { flex-direction: column; }
-  .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    border-right: none;
-    border-bottom: 1px solid #1e1e1e;
-    padding: 0;
-    overflow-x: auto;
-  }
-  .sidebar-logo {
-    padding: 18px 16px 14px;
-    min-width: 160px;
-  }
-  .sidebar nav {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 8px 12px 8px 0;
-    gap: 8px;
-    align-items: center;
-  }
-  .sidebar-link {
-    white-space: nowrap;
-    padding: 10px 14px;
-    border-radius: 999px;
-    flex: 0 0 auto;
-  }
-  .sidebar-bottom {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 12px 16px 16px;
-  }
-  .main { margin-left: 0; padding: 24px 20px; }
-  .field-row, .field-row3 { grid-template-columns: 1fr; }
-  .proj-item, .sg-block, .card { padding: 20px; }
-  .sidebar { position: absolute; z-index: 40; width: 240px; height: 100vh; top: 0; left: 0; border-right: 1px solid #1e1e1e; border-bottom: none; }
-  .sidebar-open-btn { display: inline-flex; }
-  .sidebar-toggle { display: inline-flex; }
+.view-site { display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: #888; font-size: .85rem; font-weight: 500; text-decoration: none; padding: 10px 14px; border-radius: 8px; border: 1px solid #262626; transition: all .15s; }
+.view-site:hover { color: #fff; border-color: #444; background: #161616; }
+
+/* ── Modern Dynamic Responsive Overrides ── */
+@media (max-width: 1100px) {
+  .section-row { grid-template-columns: 1fr; gap: 24px; }
+  .skills-panel { position: static; max-height: none; overflow: visible; }
+  .projects-list-wrap { max-height: none; overflow: visible; }
 }
 
-@media (max-width: 620px) {
-  .main { padding: 18px 14px; }
-  .sidebar-logo { font-size: .7rem; padding: 16px 12px 10px; }
-  .sidebar-bottom { padding: 10px 12px 14px; }
-  .sidebar-link { font-size: .8rem; padding: 8px 12px; }
+@media (max-width: 840px) {
+  .sidebar { transform: translateX(-100%); width: 280px; box-shadow: 20px 0 60px rgba(0,0,0,0.6); }
+  .sidebar-toggle-close { display: block; }
+  .main { margin-left: 0 !important; padding: 90px 24px 40px; }
+  
+  .admin-shell:not(.sidebar-closed) .sidebar { transform: translateX(0); }
+  .admin-shell:not(.sidebar-closed) .sidebar-open-btn { opacity: 0; transform: translateX(-20px); pointer-events: none; }
+  .admin-shell.sidebar-closed .sidebar-open-btn { transform: translateX(0); opacity: 1; pointer-events: auto; }
+}
+
+@media (max-width: 600px) {
+  .main { padding: 84px 16px 32px; }
+  .card { padding: 20px; }
+  .field-row, .field-row3 { grid-template-columns: 1fr; gap: 16px; }
+  .field-row3 .field:first-child input { text-align: left !important; font-size: .9rem !important; }
+  .sk-labels { display: none; }
+  .sk-row { grid-template-columns: 1fr; gap: 8px; background: #1a1a1a; padding: 14px; border-radius: 10px; border: 1px solid #262626; position: relative; }
+  .sk-row input { padding: 10px; }
+  .sk-row .del { position: absolute; top: -8px; right: -8px; width: 28px; height: 28px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
 }
 </style>
 
-<div class="admin-shell">
+<div class="admin-shell sidebar-closed">
+  <!-- Sidebar -->
   <aside class="sidebar">
-    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+    <button class="sidebar-toggle-close" onclick="toggleSidebar()" aria-label="Close menu"><i class="fas fa-times"></i></button>
     <div class="sidebar-logo">Ahmed <span>Admin</span></div>
     <nav>
-      <button class="sidebar-link active" onclick="showTab('hero',this)"><i class="fas fa-user"></i> Hero / About</button>
-      <button class="sidebar-link" onclick="showTab('projects-skills',this)"><i class="fas fa-layer-group"></i> Projects & Skills</button>
+      <button class="sidebar-link active" onclick="showTab('hero', this)"><i class="fas fa-user"></i> Hero / About</button>
+      <button class="sidebar-link" onclick="showTab('projects-skills', this)"><i class="fas fa-layer-group"></i> Projects & Skills</button>
     </nav>
     <div class="sidebar-divider"></div>
     <div class="sidebar-bottom">
       <a href="/" class="view-site" target="_blank"><i class="fas fa-external-link-alt"></i> View site</a>
-      <div style="margin-top:10px">
-        <a href="/logout" class="sidebar-link" style="color:#c0392b"><i class="fas fa-sign-out-alt"></i> Logout</a>
-      </div>
+      <a href="/logout" class="sidebar-link" style="color: #e05252; margin-top: 4px;"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
   </aside>
+
+  <!-- Global Action Menu Button for Triggering State -->
   <button class="sidebar-open-btn" onclick="toggleSidebar()" aria-label="Open menu"><i class="fas fa-bars"></i> Menu</button>
 
+  <!-- Primary Dynamic Content Workspace -->
   <main class="main">
     {% with msgs = get_flashed_messages() %}
       {% if msgs %}<div class="flash-msg"><i class="fas fa-check-circle"></i> {{ msgs[0] }}</div>{% endif %}
     {% endwith %}
 
+    <!-- SECTION: HERO / ABOUT -->
     <div id="tab-hero" class="section active">
-      <div class="page-header"><h1>Hero / About</h1><p>Edit your name, bio, roles and links.</p></div>
+      <div class="page-header">
+        <h1>Hero / About</h1>
+        <p>Edit your name, bio, roles and links.</p>
+      </div>
       <form method="POST" action="/admin/save-hero">
         <div class="card">
           <div class="card-title">Identity</div>
@@ -201,14 +225,21 @@ body { background: #0d0d0d; color: #e0e0e0; font-family: 'Inter', sans-serif; }
           </div>
           <div class="field"><label>LinkedIn URL</label><input name="linkedin" value="{{ c.linkedin }}"></div>
         </div>
-        <div class="form-actions"><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Changes</button></div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Changes</button>
+        </div>
       </form>
     </div>
 
+    <!-- SECTION: PROJECTS & SKILLS -->
     <div id="tab-projects-skills" class="section">
-      <div class="page-header"><h1>Projects & Skills</h1><p>Edit projects and skill groups on the same page. Save each section separately.</p></div>
+      <div class="page-header">
+        <h1>Projects & Skills</h1>
+        <p>Edit projects and skill groups on the same page. Save each section separately.</p>
+      </div>
 
       <div class="section-row">
+        <!-- Projects Workspace Column -->
         <div class="projects-panel">
           <div class="card">
             <div class="card-title">Projects</div>
@@ -216,15 +247,14 @@ body { background: #0d0d0d; color: #e0e0e0; font-family: 'Inter', sans-serif; }
               <div class="projects-list-wrap" id="proj-list">
                 {% for p in c.projects %}
                 <div class="proj-item">
-                  <div class="proj-num">Project {{ loop.index }}</div>
-                  <button type="button" class="btn btn-danger rem" onclick="rmProj(this)"><i class="fas fa-trash"></i></button>
+                  <div class="proj-num"></div>
+                  <button type="button" class="btn btn-danger rem" onclick="rmProj(this)" aria-label="Delete project"><i class="fas fa-trash"></i></button>
                   <div class="field"><label>Title</label><input name="title" value="{{ p.title }}"></div>
                   <div class="field"><label>Description</label><textarea name="desc">{{ p.desc }}</textarea></div>
                   <div class="field-row3">
                     <div class="field">
                       <label>Emoji</label>
                       <input name="emoji" value="{{ p.emoji }}" placeholder="🚀" maxlength="4" style="font-size:1.3rem;text-align:center">
-                      <div class="hint">One emoji</div>
                     </div>
                     <div class="field"><label>Photo URL (overrides emoji)</label><input name="photo" value="{{ p.photo }}" placeholder="/static/img.png or https://..."></div>
                     <div class="field"><label>Project Link</label><input name="link" value="{{ p.link }}" placeholder="https://github.com/..."></div>
@@ -234,11 +264,14 @@ body { background: #0d0d0d; color: #e0e0e0; font-family: 'Inter', sans-serif; }
                 {% endfor %}
               </div>
               <button type="button" class="add-block-btn" onclick="addProj()"><i class="fas fa-plus"></i> Add Project</button>
-              <div class="form-actions" style="margin-top:16px"><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Projects</button></div>
+              <div class="form-actions" style="margin-top:20px">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Projects</button>
+              </div>
             </form>
           </div>
         </div>
 
+        <!-- Sticky Skills Serialization Management Column -->
         <aside class="skills-panel">
           <div class="card">
             <div class="card-title">Skills</div>
@@ -249,7 +282,7 @@ body { background: #0d0d0d; color: #e0e0e0; font-family: 'Inter', sans-serif; }
                 <div class="sg-block">
                   <div class="sg-header">
                     <input type="text" class="sg-name" value="{{ sg.group }}" placeholder="Group name">
-                    <button type="button" class="btn btn-danger" onclick="this.closest('.sg-block').remove()"><i class="fas fa-trash"></i> Remove group</button>
+                    <button type="button" class="btn btn-danger" onclick="this.closest('.sg-block').remove()"><i class="fas fa-trash"></i> Remove</button>
                   </div>
                   <div class="sk-labels"><span>Emoji</span><span>Name</span><span>Level %</span><span></span></div>
                   <div class="sk-rows">
@@ -262,12 +295,14 @@ body { background: #0d0d0d; color: #e0e0e0; font-family: 'Inter', sans-serif; }
                     </div>
                     {% endfor %}
                   </div>
-                  <button type="button" class="add-row-btn" onclick="addSkRow(this.previousElementSibling)"><i class="fas fa-plus"></i> Add skill</button>
+                  <button type="button" class="add-row-btn" onclick="addSkRow(this)"><i class="fas fa-plus"></i> Add skill</button>
                 </div>
                 {% endfor %}
               </div>
               <button type="button" class="add-block-btn" onclick="addSgBlock()"><i class="fas fa-plus"></i> Add Group</button>
-              <div class="form-actions" style="margin-top:16px"><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Skills</button></div>
+              <div class="form-actions" style="margin-top:20px">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Skills</button>
+              </div>
             </form>
           </div>
         </aside>
@@ -277,32 +312,44 @@ body { background: #0d0d0d; color: #e0e0e0; font-family: 'Inter', sans-serif; }
 </div>
 
 <script>
-/* ── Tab switching ── */
+/* ── UI Shell Management ── */
+function toggleSidebar() {
+  document.querySelector('.admin-shell').classList.toggle('sidebar-closed');
+}
+
 function showTab(name, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.sidebar-link').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   btn.classList.add('active');
+  
+  // Clean auto-drawer toggle for smaller monitors
+  if (window.innerWidth <= 840) {
+    document.querySelector('.admin-shell').classList.add('sidebar-closed');
+  }
 }
 
-/* ── Projects ── */
+/* ── Dynamic Projects Processing ── */
 function rmProj(btn) {
   const items = document.querySelectorAll('.proj-item');
-  if (items.length > 1) btn.closest('.proj-item').remove();
-  else alert('Keep at least one project entry.');
+  if (items.length > 1) {
+    btn.closest('.proj-item').remove();
+  } else {
+    alert('Keep at least one project entry.');
+  }
 }
+
 function addProj() {
   const list = document.getElementById('proj-list');
-  const n = list.children.length + 1;
   const d = document.createElement('div');
   d.className = 'proj-item';
   d.innerHTML = `
-    <div class="proj-num">Project ${n}</div>
-    <button type="button" class="btn btn-danger rem" onclick="rmProj(this)"><i class="fas fa-trash"></i></button>
+    <div class="proj-num"></div>
+    <button type="button" class="btn btn-danger rem" onclick="rmProj(this)" aria-label="Delete project"><i class="fas fa-trash"></i></button>
     <div class="field"><label>Title</label><input name="title" placeholder="Project name"></div>
     <div class="field"><label>Description</label><textarea name="desc" placeholder="What does it do?"></textarea></div>
     <div class="field-row3">
-      <div class="field"><label>Emoji</label><input name="emoji" placeholder="🚀" maxlength="4" style="font-size:1.3rem;text-align:center"><div class="hint">One emoji</div></div>
+      <div class="field"><label>Emoji</label><input name="emoji" placeholder="🚀" maxlength="4" style="font-size:1.3rem;text-align:center"></div>
       <div class="field"><label>Photo URL</label><input name="photo" placeholder="https://..."></div>
       <div class="field"><label>Project Link</label><input name="link" placeholder="https://github.com/..."></div>
     </div>
@@ -311,8 +358,10 @@ function addProj() {
   d.querySelector('input').focus();
 }
 
-/* ── Skills (JSON approach — no count issues) ── */
-function addSkRow(container) {
+/* ── Dynamic Group / Skill Operations ── */
+function addSkRow(buttonEl) {
+  // Directly targeting the unique structural container via parent block contextual query
+  const targetContainer = buttonEl.closest('.sg-block').querySelector('.sk-rows');
   const d = document.createElement('div');
   d.className = 'sk-row';
   d.innerHTML = `
@@ -320,7 +369,7 @@ function addSkRow(container) {
     <input class="sk-name" placeholder="Skill name">
     <input class="sk-lvl" type="number" min="0" max="100" placeholder="75">
     <button type="button" class="del" onclick="this.closest('.sk-row').remove()"><i class="fas fa-times"></i></button>`;
-  container.appendChild(d);
+  targetContainer.appendChild(d);
   d.querySelector('.sk-name').focus();
 }
 
@@ -331,36 +380,37 @@ function addSgBlock() {
   d.innerHTML = `
     <div class="sg-header">
       <input type="text" class="sg-name" placeholder="Group name (e.g. Backend)">
-      <button type="button" class="btn btn-danger" onclick="this.closest('.sg-block').remove()"><i class="fas fa-trash"></i> Remove group</button>
+      <button type="button" class="btn btn-danger" onclick="this.closest('.sg-block').remove()"><i class="fas fa-trash"></i> Remove</button>
     </div>
     <div class="sk-labels"><span>Emoji</span><span>Name</span><span>Level %</span><span></span></div>
     <div class="sk-rows"></div>
-    <button type="button" class="add-row-btn" onclick="addSkRow(this.previousElementSibling)"><i class="fas fa-plus"></i> Add skill</button>`;
+    <button type="button" class="add-row-btn" onclick="addSkRow(this)"><i class="fas fa-plus"></i> Add skill</button>`;
   list.appendChild(d);
   d.querySelector('.sg-name').focus();
 }
 
-function toggleSidebar() {
-  document.querySelector('.admin-shell').classList.toggle('sidebar-closed');
-}
-
-/* Pack all skill data into one JSON hidden input before submit */
+/* Data Aggregator / JSON Packer */
 function packSkills() {
   const groups = [];
   document.querySelectorAll('.sg-block').forEach(block => {
     const gname = block.querySelector('.sg-name').value.trim();
     if (!gname) return;
+    
     const skills = [];
     block.querySelectorAll('.sk-row').forEach(row => {
       const name = row.querySelector('.sk-name').value.trim();
       if (!name) return;
+      
       skills.push({
-        emoji: row.querySelector('.sk-emoji').value.trim(),
+        emoji: row.querySelector('.sk-emoji').value.trim() || "🔧",
         name:  name,
         level: parseInt(row.querySelector('.sk-lvl').value) || 50
       });
     });
-    if (skills.length) groups.push({ group: gname, skills });
+    
+    if (skills.length) {
+      groups.push({ group: gname, skills: skills });
+    }
   });
   document.getElementById('skills-json').value = JSON.stringify(groups);
 }

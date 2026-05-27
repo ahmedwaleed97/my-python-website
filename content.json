@@ -1,19 +1,17 @@
 {
   "name": "Ahmed Whaleed",
-  "bio": "Computer Engineer (2019) with growing experience in Python development, system administration, and automation. My interests sit at the intersection of backend engineering, Linux systems, and AI-driven technologies. I enjoy building practical projects that solve real problems, from backend APIs to system tools and automation scripts. I am currently developing my skills in machine learning, cloud computing, and MLOps, with a focus on building scalable and efficient systems.",
+  "bio": "I’m a Computer Engineer graduated in 2019, currently building my skills in Python development, Linux system administration, and automation. I enjoy working with technology hands-on, whether it’s developing backend projects, managing Linux systems, troubleshooting technical issues, or creating automation tools that make tasks easier.\r\n\r\nI’m also exploring AI, cloud computing, and MLOps to expand my knowledge and gain experience with modern technologies. My focus is on continuous learning through real projects and practical experience, with the goal of growing as both a developer and a Linux system administrator.",
   "roles": [
     "Python Developer",
-    "AI / ML Engineer",
-    "Linux System Administrator",
-    "MLOps Engineer"
+    "DevOps engineer",
+    "Linux System Administrator"
   ],
   "tags": [
     "Python Developer",
-    "AI / ML Engineer",
-    "Linux Sys Admin",
-    "MLOps Engineer"
+    "DevOps engineer",
+    "Linux System Administrator"
   ],
-  "cv_url": "#",
+  "cv_url": "/static/Ahmedcv.pdf",
   "email": "ahmedwaleed.tech1@gmail.com",
   "github": "#",
   "linkedin": "#",
@@ -22,132 +20,137 @@
       "group": "Languages",
       "skills": [
         {
+          "emoji": "🐍",
           "name": "Python",
-          "level": 85,
-          "emoji": "🐍"
+          "level": 30
         },
         {
+          "emoji": "💻",
           "name": "Bash / Shell",
-          "level": 75,
-          "emoji": "💻"
+          "level": 40
         },
         {
+          "emoji": "🗄️",
           "name": "SQL",
-          "level": 70,
-          "emoji": "🗄️"
+          "level": 50
+        },
+        {
+          "emoji": "⚛️",
+          "name": "React",
+          "level": 30
         }
       ]
     },
     {
-      "group": "Backend & APIs",
+      "group": "Backend & APIs (Labs)",
       "skills": [
         {
-          "name": "Flask",
-          "level": 78,
-          "emoji": "🌶️"
-        },
-        {
+          "emoji": "⚡",
           "name": "FastAPI",
-          "level": 60,
-          "emoji": "⚡"
+          "level": 20
         },
         {
+          "emoji": "🔗",
           "name": "REST APIs",
-          "level": 72,
-          "emoji": "🔗"
+          "level": 20
         }
       ]
     },
     {
-      "group": "Systems & DevOps",
+      "group": "Systems & DevOps (Labs)",
       "skills": [
         {
+          "emoji": "🐧",
           "name": "Linux",
-          "level": 82,
-          "emoji": "🐧"
+          "level": 30
         },
         {
+          "emoji": "🐳",
           "name": "Docker",
-          "level": 65,
-          "emoji": "🐳"
+          "level": 40
         },
         {
+          "emoji": "🔀",
           "name": "Git",
-          "level": 80,
-          "emoji": "🔀"
+          "level": 90
+        },
+        {
+          "emoji": "☁",
+          "name": "AWS (IAM-EC2)",
+          "level": 45
+        },
+        {
+          "emoji": "🖥️",
+          "name": "Active Directory",
+          "level": 60
+        },
+        {
+          "emoji": "🔄",
+          "name": "CD/CI",
+          "level": 20
         }
       ]
     },
     {
-      "group": "AI / ML",
+      "group": "Support  & troubleshooting (Hands-On)",
       "skills": [
         {
-          "name": "Machine Learning",
-          "level": 60,
-          "emoji": "🤖"
+          "emoji": "🛠️",
+          "name": "Hardware & Software  troubleshooting",
+          "level": 90
         },
         {
-          "name": "Pandas / NumPy",
-          "level": 75,
-          "emoji": "📊"
+          "emoji": "🔌",
+          "name": "Deployment & maintenance",
+          "level": 90
         },
         {
-          "name": "Scikit-learn",
-          "level": 55,
-          "emoji": "🔬"
+          "emoji": "🎫",
+          "name": "Tools & ticketing systems",
+          "level": 90
+        },
+        {
+          "emoji": "🌐",
+          "name": "Network troubleshooting",
+          "level": 75
+        },
+        {
+          "emoji": "🛜",
+          "name": "mikrotik & cico mang and configuration",
+          "level": 65
+        },
+        {
+          "emoji": "🔐",
+          "name": "Security basics",
+          "level": 99
+        },
+        {
+          "emoji": "📊",
+          "name": "Monitoring systems",
+          "level": 80
+        },
+        {
+          "emoji": "📝",
+          "name": "Documentation",
+          "level": 80
+        },
+        {
+          "emoji": "👤",
+          "name": "User training",
+          "level": 85
         }
       ]
     }
   ],
   "projects": [
     {
-      "title": "Portfolio Website",
-      "desc": "A personal portfolio built with Flask, featuring a custom cursor, typewriter effect, and a live admin panel for editing content without touching code.",
-      "link": "#",
-      "emoji": "🌐",
+      "title": "captionly 🅾  𝐈𝐧𝐬𝐭𝐚𝐠𝐫𝐚𝐦 ★【ꚠ】Tikok",
+      "desc": "Captionly is an AI-powered web app that generates high-quality social media captions, hashtags, and posting tips for content creators.\r\n\r\nIt is designed to help you create viral-ready posts in seconds for:\r\n\r\n📸 Instagram\r\n🎵 TikTok  required API",
+      "link": "https://github.com/ahmedwaleed97/captionly-app.git",
+      "emoji": "📱",
       "photo": "",
       "tech": [
-        "Python",
-        "Flask",
-        "HTML",
-        "CSS",
-        "JavaScript"
-      ]
-    },
-    {
-      "title": "Linux Automation Scripts",
-      "desc": "A collection of Bash and Python scripts that automate system administration tasks — backups, log rotation, process monitoring, and cron management.",
-      "link": "#",
-      "emoji": "⚙️",
-      "photo": "",
-      "tech": [
-        "Python",
-        "Bash",
-        "Linux",
-        "Cron"
-      ]
-    },
-    {
-      "title": "ML Classifier Pipeline",
-      "desc": "An end-to-end machine learning pipeline using Scikit-learn and Pandas for data cleaning, feature engineering, model training, and evaluation.",
-      "link": "#",
-      "emoji": "🤖",
-      "photo": "",
-      "tech": [
-        "Python",
-        "Scikit-learn",
-        "Pandas",
-        "NumPy"
-      ]
-    },
-    {
-      "title": "ssssssss",
-      "desc": "sssssssssss",
-      "link": "ssssssss",
-      "emoji": "",
-      "photo": "ssssssss",
-      "tech": [
-        "sssssssssssssss"
+        "Python 🐍 Streamlit 🎈 Google Gemini API 🤖 Docker 🐳 Prompt Engineering 🧠"
       ]
     }
   ]
