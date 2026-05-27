@@ -1,0 +1,154 @@
+{
+  "name": "Ahmed Whaleed",
+  "bio": "Computer Engineer (2019) with growing experience in Python development, system administration, and automation. My interests sit at the intersection of backend engineering, Linux systems, and AI-driven technologies. I enjoy building practical projects that solve real problems, from backend APIs to system tools and automation scripts. I am currently developing my skills in machine learning, cloud computing, and MLOps, with a focus on building scalable and efficient systems.",
+  "roles": [
+    "Python Developer",
+    "AI / ML Engineer",
+    "Linux System Administrator",
+    "MLOps Engineer"
+  ],
+  "tags": [
+    "Python Developer",
+    "AI / ML Engineer",
+    "Linux Sys Admin",
+    "MLOps Engineer"
+  ],
+  "cv_url": "#",
+  "email": "ahmedwaleed.tech1@gmail.com",
+  "github": "#",
+  "linkedin": "#",
+  "skill_groups": [
+    {
+      "group": "Languages",
+      "skills": [
+        {
+          "name": "Python",
+          "level": 85,
+          "emoji": "🐍"
+        },
+        {
+          "name": "Bash / Shell",
+          "level": 75,
+          "emoji": "💻"
+        },
+        {
+          "name": "SQL",
+          "level": 70,
+          "emoji": "🗄️"
+        }
+      ]
+    },
+    {
+      "group": "Backend & APIs",
+      "skills": [
+        {
+          "name": "Flask",
+          "level": 78,
+          "emoji": "🌶️"
+        },
+        {
+          "name": "FastAPI",
+          "level": 60,
+          "emoji": "⚡"
+        },
+        {
+          "name": "REST APIs",
+          "level": 72,
+          "emoji": "🔗"
+        }
+      ]
+    },
+    {
+      "group": "Systems & DevOps",
+      "skills": [
+        {
+          "name": "Linux",
+          "level": 82,
+          "emoji": "🐧"
+        },
+        {
+          "name": "Docker",
+          "level": 65,
+          "emoji": "🐳"
+        },
+        {
+          "name": "Git",
+          "level": 80,
+          "emoji": "🔀"
+        }
+      ]
+    },
+    {
+      "group": "AI / ML",
+      "skills": [
+        {
+          "name": "Machine Learning",
+          "level": 60,
+          "emoji": "🤖"
+        },
+        {
+          "name": "Pandas / NumPy",
+          "level": 75,
+          "emoji": "📊"
+        },
+        {
+          "name": "Scikit-learn",
+          "level": 55,
+          "emoji": "🔬"
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Portfolio Website",
+      "desc": "A personal portfolio built with Flask, featuring a custom cursor, typewriter effect, and a live admin panel for editing content without touching code.",
+      "link": "#",
+      "emoji": "🌐",
+      "photo": "",
+      "tech": [
+        "Python",
+        "Flask",
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ]
+    },
+    {
+      "title": "Linux Automation Scripts",
+      "desc": "A collection of Bash and Python scripts that automate system administration tasks — backups, log rotation, process monitoring, and cron management.",
+      "link": "#",
+      "emoji": "⚙️",
+      "photo": "",
+      "tech": [
+        "Python",
+        "Bash",
+        "Linux",
+        "Cron"
+      ]
+    },
+    {
+      "title": "ML Classifier Pipeline",
+      "desc": "An end-to-end machine learning pipeline using Scikit-learn and Pandas for data cleaning, feature engineering, model training, and evaluation.",
+      "link": "#",
+      "emoji": "🤖",
+      "photo": "",
+      "tech": [
+        "Python",
+        "Scikit-learn",
+        "Pandas",
+        "NumPy"
+      ]
+    },
+    {
+      "title": "ssssssss",
+      "desc": "sssssssssss",
+      "link": "ssssssss",
+      "emoji": "",
+      "photo": "ssssssss",
+      "tech": [
+        "sssssssssssssss"
+      ]
+    }
+  ]
+}
