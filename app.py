@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, flash
 import json, os
+import sys
 from functools import wraps
 
 app = Flask(__name__)
@@ -18,8 +19,13 @@ def load_content():
 
 
 def save_content(data):
-    with open(CONTENT_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+    try:
+        with open(CONTENT_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        return True
+    except Exception as e:
+        print(f"Error saving {CONTENT_FILE}: {e}", file=sys.stderr)
+        return False
 
 
 def admin_required(fn):
@@ -87,7 +93,9 @@ def save_hero():
     c["email"]    = request.form["email"].strip()
     c["github"]   = request.form["github"].strip()
     c["linkedin"] = request.form["linkedin"].strip()
-    save_content(c)
+    if not save_content(c):
+        flash("Error saving hero — server cannot write changes.")
+        return redirect("/admin")
     flash("Hero section saved ✓")
     return redirect("/admin")
 
@@ -114,7 +122,9 @@ def save_projects():
         for t, d, l, e, p, tc in zip(titles, descs, links, emojis, photos, techs)
         if t.strip()
     ]
-    save_content(c)
+    if not save_content(c):
+        flash("Error saving projects — server cannot write changes.")
+        return redirect("/admin")
     flash("Projects saved ✓")
     return redirect("/admin")
 
@@ -129,7 +139,9 @@ def save_skills():
     except (KeyError, json.JSONDecodeError):
         flash("Error parsing skills — please try again.")
         return redirect("/admin")
-    save_content(c)
+    if not save_content(c):
+        flash("Error saving skills — server cannot write changes.")
+        return redirect("/admin")
     flash("Skills saved ✓")
     return redirect("/admin")
 
