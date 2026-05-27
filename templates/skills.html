@@ -314,9 +314,30 @@
   /* Hamburger */
   const hbtn = document.getElementById('hamburger');
   const nav  = document.getElementById('nav-menu');
+  function closeMenu() {
+    nav.classList.remove('open');
+    hbtn.classList.remove('active');
+  }
   hbtn.addEventListener('click', () => {
     nav.classList.toggle('open');
     hbtn.classList.toggle('active');
+  });
+
+  // Auto-close on nav link click (mobile)
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    if (window.innerWidth <= 768) closeMenu();
+  }));
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('open') && !nav.contains(e.target) && !hbtn.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  // Close on scroll (mobile)
+  window.addEventListener('scroll', () => {
+    if (nav.classList.contains('open') && window.innerWidth <= 768) closeMenu();
   });
 </script>
 {% endblock %}

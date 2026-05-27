@@ -394,7 +394,7 @@ nav { display: flex; align-items: center; gap: 40px; animation: fadeIn 0.8s ease
     .hero-top { gap: 10px; }
     .hero-name { font-size: 26px; }
     .hero-greeting { font-size: 13px; }
-    .hero-desc { font-size: 10.5px; line-height: 1.65; max-width: 72%; }
+    .hero-desc { font-size: 14px; line-height: 1.6; max-width: 100%; }
     .interests-label { font-size: 14px; }
     .hero-roles { font-size: 11px; }
     .hero-interests { gap: 6px; margin-top: 8px; }
@@ -478,10 +478,34 @@ nav { display: flex; align-items: center; gap: 40px; animation: fadeIn 0.8s ease
 
     const btn = document.getElementById('hamburger');
     const nav = document.getElementById('nav-menu');
+    function closeMenu() {
+        nav.classList.remove('open');
+        btn.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    }
     btn.addEventListener('click', () => {
         nav.classList.toggle('open');
         btn.classList.toggle('active');
         document.body.classList.toggle('menu-open');
+    });
+
+    // Auto-close menu on mobile when a nav link is clicked
+    nav.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+            if (window.innerWidth <= 768) closeMenu();
+        });
+    });
+
+    // Close when clicking outside the nav
+    document.addEventListener('click', (e) => {
+        if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) {
+            closeMenu();
+        }
+    });
+
+    // Close on scroll on small screens
+    window.addEventListener('scroll', () => {
+        if (nav.classList.contains('open') && window.innerWidth <= 768) closeMenu();
     });
 
     const projectsButton = document.getElementById('btnProjects');

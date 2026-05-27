@@ -1,6 +1,6 @@
 {
   "name": "Ahmed Whaleed",
-  "bio": "I’m a Computer Engineer graduated in 2019, currently building my skills in Python development, Linux system administration, and automation. I enjoy working with technology hands-on, whether it’s developing backend projects, managing Linux systems, troubleshooting technical issues, or creating automation tools that make tasks easier.\r\n\r\nI’m also exploring AI, cloud computing, and MLOps to expand my knowledge and gain experience with modern technologies. My focus is on continuous learning through real projects and practical experience, with the goal of growing as both a developer and a Linux system administrator.",
+  "bio": "Computer Engineer (2019) with experience in Python, Linux system administration, and automation. I build practical projects to improve system management and develop automation solutions. Continuously learning Python and Linux, with interest in cloud computing and AI. Seeking to grow in system administration and software development roles.",
   "roles": [
     "Python Developer",
     "DevOps engineer",
@@ -13,7 +13,7 @@
   ],
   "cv_url": "/static/Ahmedcv.pdf",
   "email": "ahmedwaleed.tech1@gmail.com",
-  "github": "#",
+  "github": "https://github.com/ahmedwaleed97",
   "linkedin": "#",
   "skill_groups": [
     {
