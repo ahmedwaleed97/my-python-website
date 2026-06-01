@@ -152,6 +152,30 @@
       "tech": [
         "Python 🐍 Streamlit 🎈 Google Gemini API 🤖 Docker 🐳 Prompt Engineering 🧠"
       ]
+    },
+    {
+      "title": "Task Manager FastApi ⚡",
+      "desc": "User registration and login with JWT authentication\r\nPasswords are hashed (never stored in plain text)\r\nFull CRUD for tasks (create, read, update, delete)\r\nEach user only sees and manages their own tasks\r\nAutomatic interactive API docs at /docs\r\nAutomated tests with pytest",
+      "link": "https://github.com/ahmedwaleed97/Task-Manager-API.git",
+      "emoji": "📝",
+      "photo": "",
+      "tech": [
+        "FastAPI — web framework SQLAlchemy — database ORM Pydantic — data validation SQLite — database python-jose — JWT tokens passlib + bcrypt — password hashing pytest — testing"
+      ]
+    },
+    {
+      "title": " Expense Tracker 💰",
+      "desc": "A modern, user-friendly web application for tracking personal expenses. Built with Flask and featuring a clean, intuitive interface with interactive charts and multi-currency support.",
+      "link": "https://github.com/AhmedAi77/Expense_Tracker.git",
+      "emoji": "💵",
+      "photo": "",
+      "tech": [
+        "Backend: Python 3.8+",
+        "Flask 3.0.0 Database: SQLite3 Frontend: HTML5",
+        "CSS3",
+        "JavaScript UI Framework: Bootstrap 5 Icons: Bootstrap Icons Charts: Chart.js Security: Werkzeug (password hashing)",
+        "Flask-Session Session Management: Flask-Session (filesystem-based)"
+      ]
     }
   ]
 }
