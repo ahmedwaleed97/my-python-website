@@ -12,15 +12,12 @@
             <h1 class="hero-name">{{ c.name }}</h1>
             <p class="hero-desc">{{ c.bio }}</p>
             <div class="hero-interests">
-                <h2 class="interests-label">Roles I'm Interested In</h2>
+                <h2 class="interests-label">Currently Exploring</h2>
                 <p class="hero-roles"><span id="typed-role"></span><span class="cursor">|</span></p>
                 <div class="interest-tags">
                     {% for tag in c.tags %}
                     <span class="tag" style="transition-delay: calc({{ loop.index }} * 0.05s);">{{ tag }}</span>
                     {% endfor %}
-                </div>
-                <div class="hero-projects-wrapper">
-                    <button id="btnProjects" class="hero-projects">View Projects</button>
                 </div>
             </div>
             <a href="{{ c.cv_url }}" class="cv-btn" target="_blank" rel="noopener noreferrer">
