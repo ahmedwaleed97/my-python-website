@@ -1,6 +1,6 @@
 {
   "name": "Ahmed Whaleed",
-  "bio": "Computer Engineer with strong hands-on experience in IT support, system administration, and network infrastructure — Active Directory, monitoring, deployment, and troubleshooting across real environments. Now building toward DevOps and intelligent automation, developing Python projects that integrate cloud tools and AI APIs to solve practical problems.",
+  "bio": "IT Engineer with a Computer Engineering degree (2019). After working in a different field after graduation, I returned to IT in 2024 and have since built strong hands-on experience in systems, servers, and infrastructure. I continuously improve my skills through practical work and learning, with a strong interest in programming and system internals. My goal is to grow into a DevOps Engineer role.",
   "roles": [
     "Python Developer",
     "DevOps engineer",
@@ -176,6 +176,16 @@
         "CSS3",
         "JavaScript UI Framework: Bootstrap 5 Icons: Bootstrap Icons Charts: Chart.js Security: Werkzeug (password hashing)",
         "Flask-Session Session Management: Flask-Session (filesystem-based)"
+      ]
+    },
+    {
+      "title": "Free CV Builder",
+      "desc": "Build a professional, ATS-friendly CV in minutes. Fill in your details, watch a clean CV assemble itself live, and export a crisp PDF. An AI review flags gaps and weak spots before you send it.",
+      "link": "https://ats-cv1.vercel.app/",
+      "emoji": "",
+      "photo": "",
+      "tech": [
+        "React 18 + Vite 6 lucide-react (icons) mammoth (Word file parsing) pdf.js via CDN (PDF text extraction) Gemini API (optional AI review)"
       ]
     }
   ]
