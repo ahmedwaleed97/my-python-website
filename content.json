@@ -147,7 +147,7 @@
     {
       "title": "captionly 🅾  𝐈𝐧𝐬𝐭𝐚𝐠𝐫𝐚𝐦 ★【ꚠ】Tikok",
       "desc": "Captionly is an AI-powered web app that generates high-quality social media captions, hashtags, and posting tips for content creators.\r\n\r\nIt is designed to help you create viral-ready posts in seconds for:\r\n\r\n📸 Instagram\r\n🎵 TikTok  required API",
-      "link": "https://github.com/ahmedwaleed97/captionly-app.git",
+      "link": "https://captionly-app22.vercel.app/",
       "emoji": "📱",
       "photo": "",
       "tech": [
@@ -155,19 +155,9 @@
       ]
     },
     {
-      "title": "Task Manager FastApi ⚡",
-      "desc": "User registration and login with JWT authentication\r\nPasswords are hashed (never stored in plain text)\r\nFull CRUD for tasks (create, read, update, delete)\r\nEach user only sees and manages their own tasks\r\nAutomatic interactive API docs at /docs\r\nAutomated tests with pytest",
-      "link": "https://github.com/ahmedwaleed97/Task-Manager-API.git",
-      "emoji": "📝",
-      "photo": "",
-      "tech": [
-        "FastAPI — web framework SQLAlchemy — database ORM Pydantic — data validation SQLite — database python-jose — JWT tokens passlib + bcrypt — password hashing pytest — testing"
-      ]
-    },
-    {
       "title": " Expense Tracker 💰",
       "desc": "A modern, user-friendly web application for tracking personal expenses. Built with Flask and featuring a clean, intuitive interface with interactive charts and multi-currency support.",
-      "link": "https://github.com/AhmedAi77/Expense_Tracker.git",
+      "link": "https://expensetracker-eight-zeta.vercel.app/login",
       "emoji": "💵",
       "photo": "",
       "tech": [
@@ -179,10 +169,10 @@
       ]
     },
     {
-      "title": "Free CV Builder",
-      "desc": "Build a professional, ATS-friendly CV in minutes. Fill in your details, watch a clean CV assemble itself live, and export a crisp PDF. An AI review flags gaps and weak spots before you send it.",
+      "title": "ATS CV Bulider&cheker",
+      "desc": "Build a professional, ATS-friendly CV in minutes or check your existing CV ",
       "link": "https://ats-cv1.vercel.app/",
-      "emoji": "",
+      "emoji": "📑",
       "photo": "",
       "tech": [
         "React 18 + Vite 6 lucide-react (icons) mammoth (Word file parsing) pdf.js via CDN (PDF text extraction) Gemini API (optional AI review)"
